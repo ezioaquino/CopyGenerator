@@ -1,0 +1,19 @@
+# .dockerignore — Backend
+# Exclui do contexto de build do Docker arquivos desnecessários
+# Reduz tempo de build e evita vazar segredos (.env) na imagem
+
+node_modules/
+npm-debug.log*
+
+# Nunca incluir variáveis de ambiente na imagem Docker
+.env
+.env.*
+
+# Banco SQLite local — fica no volume externo
+data/
+src/db/*.db
+src/db/*.db-journal
+
+# Arquivos de desenvolvimento
+.gitignore
+README.md

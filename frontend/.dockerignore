@@ -1,0 +1,16 @@
+# .dockerignore — Frontend
+# Exclui do contexto de build do Docker arquivos desnecessários
+
+node_modules/
+npm-debug.log*
+
+# Build anterior — será regenerado no Stage builder
+dist/
+.vite/
+
+# Arquivos de desenvolvimento e config do editor
+.env
+.env.*
+.gitignore
+README.md
+eslint.config.js

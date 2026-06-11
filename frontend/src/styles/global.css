@@ -1,0 +1,905 @@
+/* =====================================================
+   COPYGENERATOR.AI — Sistema de Estilos Global
+   Stack: CSS Puro, Tema Dark Premium, Google Fonts
+   Fontes: Inter (corpo) + Outfit (títulos) via index.html
+   ===================================================== */
+
+/* --- Variáveis de Design (Design Tokens) ---
+   Centraliza todas as decisões visuais do sistema.
+   Alterar aqui reflete em toda a aplicação. */
+:root {
+  --font-heading: 'Outfit', 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Cores de Fundo (Escala escura HSL-calibrada) */
+  --bg-main: #0b0b0f;
+  --bg-surface: #12121a;
+  --bg-surface-hover: #181826;
+  --bg-card: #161622;
+  --bg-card-header: #1e1e2f;
+
+  /* Bordas */
+  --border-color: rgba(255, 255, 255, 0.06);
+  --border-focus: #6366f1;
+
+  /* Paleta de Cores de Destaque */
+  --color-primary: #6366f1;        /* Índigo — ação principal */
+  --color-primary-hover: #4f46e5;
+  --color-secondary: #a855f7;      /* Roxo — destaque/tags */
+  --color-success: #10b981;        /* Esmeralda — sucesso/toast */
+  --color-warning: #f59e0b;        /* Âmbar — favoritos */
+  --color-danger: #ef4444;         /* Vermelho — exclusão */
+
+  /* Escala de Texto */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Gradientes */
+  --gradient-brand: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  --gradient-glow: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+
+  /* Sombras */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+
+  /* Raios de Borda */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+
+  /* Transições padronizadas */
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Reset Universal ---
+   Remove margens/paddings padrão dos navegadores para
+   garantir consistência cross-browser */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Estilos Base do Documento --- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;   /* Suavização de fonte no macOS/Chrome */
+  -moz-osx-font-smoothing: grayscale;   /* Suavização no Firefox */
+  line-height: 1.5;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Seleção de texto personalizada */
+::selection {
+  background-color: rgba(99, 102, 241, 0.3);
+  color: var(--text-primary);
+}
+
+/* --- Scrollbar Personalizada (WebKit) ---
+   Mantém identidade visual no Chrome/Safari/Edge */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* --- Layout Raiz da Aplicação --- */
+
+/* Container principal que envolve toda a UI */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Efeito de brilho de fundo — decorativo, não interativo */
+.bg-glow {
+  position: fixed;
+  top: -10%;
+  left: 30%;
+  width: 700px;
+  height: 700px;
+  background: var(--gradient-glow);
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform; /* Otimização de compositing do navegador */
+}
+
+/* --- Navbar / Header Principal ---
+   Sticky com backdrop blur para efeito glassmorphism */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 2rem;
+  background-color: rgba(18, 18, 26, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Seção do logotipo (ícone + nome) */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Quadrado com gradiente que representa o ícone da marca */
+.logo-icon {
+  background: var(--gradient-brand);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+  font-family: var(--font-heading);
+  flex-shrink: 0;
+}
+
+/* Texto do logo com gradiente de cor aplicado */
+.logo-text {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(120deg, #ffffff, var(--text-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+/* Container dos botões de navegação */
+.nav-links {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Botão de navegação individual — estado padrão e estados interativos */
+.nav-button {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition-fast);
+  font-family: var(--font-body);
+}
+.nav-button:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-surface-hover);
+}
+.nav-button.active {
+  color: var(--text-primary);
+  background-color: rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.25);
+}
+
+/* --- Área de Conteúdo Principal ---
+   Centraliza e limita a largura máxima do conteúdo */
+.main-content {
+  flex: 1;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 2rem;
+  z-index: 1;
+}
+
+/* Grid de duas colunas para o layout Builder (formulário + output) */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  align-items: start;
+}
+
+/* Em telas menores que 1024px, empilha as colunas verticalmente */
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Cards (componente visual base) ---
+   Glassmorphism suave com transições de estado */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Cabeçalho do card com sutil separação visual */
+.card-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(30, 30, 47, 0.2);
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Título interno do card */
+.card-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Corpo do card com padding padrão */
+.card-body {
+  padding: 1.5rem;
+}
+
+/* --- Formulários e Campos de Input ---
+   Sistema unificado de estilos para todos os controles de formulário */
+
+/* Grupo de formulário — engloba label + campo */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+/* Label acessível com estilo uppercase sutil */
+.form-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Input, Textarea e Select com estilos unificados */
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: var(--transition-fast);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Select com ícone de chevron customizado via SVG embutido */
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+/* Options do select herdam o fundo escuro no navegador */
+.form-select option {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+}
+
+/* Foco com anel de destaque na cor primária */
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* Placeholder com cor mais suave */
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* Textarea permite redimensionamento apenas vertical */
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+/* Layout de duas colunas dentro de formulários */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Sistema de Botões ---
+   Hierarquia visual: primário (CTA), secundário (ação) */
+
+/* Base comum para todos os botões */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  width: 100%;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
+/* Botão primário — gradiente de marca, para ações principais (CTA) */
+.btn-primary {
+  background: var(--gradient-brand);
+  color: white;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+}
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+}
+.btn-primary:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+/* Botão secundário — ação auxiliar, mais sutil */
+.btn-secondary {
+  background-color: var(--bg-surface);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--bg-surface-hover);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Estado desabilitado para todos os botões */
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* --- Área de Output da Copy ---
+   Container onde o texto gerado pela IA é exibido */
+
+/* Estado vazio — instruções visuais para o usuário */
+.output-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 400px;
+  color: var(--text-muted);
+  text-align: center;
+  gap: 1rem;
+}
+
+/* Caixa de texto formatado do resultado da copy */
+.output-content {
+  background-color: rgba(11, 11, 15, 0.5);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  font-family: var(--font-body);
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text-primary);
+  max-height: 480px;
+  overflow-y: auto;
+  line-height: 1.7;
+}
+
+/* Estilos para o markdown renderizado dentro do output */
+.output-content h2,
+.output-content h3 {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.output-content h2:first-child,
+.output-content h3:first-child {
+  margin-top: 0;
+}
+.output-content strong {
+  color: var(--color-secondary); /* Destaque em roxo para partes-chave */
+}
+
+/* Barra de ações abaixo do output (copiar, editar, favoritar, etc.) */
+.output-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Botões de ação circulares/quadrados (ícone único) */
+.action-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  flex-shrink: 0;
+}
+.action-btn:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-surface-hover);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Modificador para botão de deletar — vermelho no hover */
+.action-btn.danger:hover {
+  color: var(--color-danger);
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+/* Modificador para o botão favorito ativo (amarelo âmbar) */
+.action-btn.favorite.active {
+  color: var(--color-warning);
+  background-color: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+/* --- Tags / Badges ---
+   Chips informativos usados em cards e headers */
+.tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+/* Tag roxa para Framework de Copy */
+.tag-framework {
+  background-color: rgba(168, 85, 247, 0.1);
+  color: #c084fc;
+  border-color: rgba(168, 85, 247, 0.25);
+}
+
+/* Tag índigo para Tom de Voz */
+.tag-tone {
+  background-color: rgba(99, 102, 241, 0.1);
+  color: #818cf8;
+  border-color: rgba(99, 102, 241, 0.25);
+}
+
+/* Tag âmbar para itens Favoritos */
+.tag-favorite {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+/* --- Componente de Histórico ---
+   Lista lateral de copies já geradas */
+
+.history-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Barra de busca/filtro do histórico */
+.history-search-bar {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Lista scrollável de copies do histórico */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: calc(100vh - 280px);
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+/* Card individual do histórico */
+.history-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.25rem;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.history-card:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: rgba(99, 102, 241, 0.3);
+  transform: translateX(3px);
+}
+
+/* Estado ativo — copy selecionada no momento */
+.history-card.active {
+  border-color: var(--color-primary);
+  background-color: rgba(99, 102, 241, 0.06);
+}
+
+/* Header do card do histórico (nome + ações) */
+.history-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+/* Título (nome do produto) do card */
+.history-card-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+/* Container de tags (framework + tom) no card */
+.history-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+/* Preview do texto gerado (2 linhas truncadas) */
+.history-card-preview {
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5;
+}
+
+/* Rodapé do card com data e botões de ação */
+.history-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* Container dos botões de ação (favoritar/deletar) no card */
+.history-card-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+/* Botão de ação dentro do card do histórico */
+.history-action-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 4px;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.history-action-btn:hover {
+  color: var(--text-primary);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+.history-action-btn.delete:hover {
+  color: var(--color-danger);
+  background-color: rgba(239, 68, 68, 0.1);
+}
+.history-action-btn.favorite.active {
+  color: var(--color-warning);
+}
+
+/* Mensagem de lista vazia */
+.history-empty {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* --- Painel de Estatísticas ---
+   Dashboard com métricas agregadas das copies geradas */
+
+/* Grid responsivo dos cartões de métricas */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+/* Cartão individual de métrica (ícone + valor + label) */
+.stats-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: var(--transition-fast);
+}
+.stats-card:hover {
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+/* Ícone decorativo do cartão de métrica */
+.stats-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background-color: rgba(99, 102, 241, 0.1);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+/* Bloco de texto com valor e descrição da métrica */
+.stats-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+/* Número principal da métrica */
+.stats-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  line-height: 1;
+}
+
+/* Descrição/label abaixo do valor */
+.stats-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Grid de dois gráficos lado a lado */
+.stats-charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .stats-charts-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Lista de itens de gráfico de barras horizontais */
+.chart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+/* Item individual da barra (label, valor, barra) */
+.chart-bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+/* Linha com nome e contagem da barra */
+.chart-bar-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* Trilho cinza de fundo da barra */
+.chart-bar-bg {
+  width: 100%;
+  height: 8px;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+/* Preenchimento da barra com gradiente de marca */
+.chart-bar-fill {
+  height: 100%;
+  background: var(--gradient-brand);
+  border-radius: var(--radius-full);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Loader / Estado de Carregamento ---
+   Exibido enquanto a IA processa a requisição */
+
+/* Wrapper centralizado do loader */
+.loader-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  gap: 1.5rem;
+  color: var(--text-secondary);
+  min-height: 400px;
+}
+
+/* Spinner circular animado com duas cores para efeito premium */
+.spinner {
+  width: 52px;
+  height: 52px;
+  border: 3px solid rgba(99, 102, 241, 0.12);
+  border-radius: 50%;
+  border-top-color: var(--color-primary);
+  border-right-color: var(--color-secondary);
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Texto pulsante durante o carregamento */
+.pulse-text {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  animation: pulse 1.6s ease-in-out infinite;
+  text-align: center;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* --- Toast de Notificação ---
+   Feedback visual não-intrusivo para ações do usuário.
+   Desliza da direita com animação cubic-bezier premium. */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: rgba(30, 30, 47, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-left: 4px solid var(--color-success);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  box-shadow: var(--shadow-lg), 0 0 0 1px var(--border-color);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 1000;
+  font-size: 0.9rem;
+  max-width: 360px;
+  animation: slideInToast 0.35s cubic-bezier(0.21, 1.02, 0.73, 1) forwards;
+}
+
+/* Animação de entrada do toast — desliza da direita */
+@keyframes slideInToast {
+  from {
+    transform: translateX(calc(100% + 2rem));
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* --- Utilitários de Acessibilidade --- */
+
+/* Esconde visualmente mas mantém acessível para leitores de tela */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Foco visível para navegação por teclado — respeita padrão WCAG */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

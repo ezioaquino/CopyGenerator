@@ -1,0 +1,67 @@
+# ============================================================
+# .gitignore — CopyGenerator.ai (raiz do monorepo)
+# ============================================================
+
+# --- Dependências ---
+node_modules/
+jspm_packages/
+
+# --- Banco de Dados SQLite ---
+# Os arquivos .db ficam no volume Docker (./backend/data/)
+# e nunca devem ser versionados
+data/
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# --- Variáveis de Ambiente ---
+# Nunca commitar chaves de API ou segredos
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# --- Builds de Produção ---
+dist/
+build/
+out/
+tmp/
+.vite/
+
+# --- Logs ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# --- Cobertura de Testes ---
+coverage/
+.nyc_output/
+
+# --- IDEs e Editores ---
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+
+# --- Sistema Operacional ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# --- Docker (artefatos locais) ---
+# Ignora o diretório de dados montado como volume
+backend/data/

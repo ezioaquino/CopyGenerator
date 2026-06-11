@@ -1,0 +1,85 @@
+# ============================================================
+# docker-compose.yml — CopyGenerator.ai
+# Orquestra dois serviços: backend (Node/Express) e frontend (Nginx + React)
+# Uso: docker compose up --build
+# Acesso: http://localhost:5173 (frontend) | http://localhost:3001 (API)
+# ============================================================
+
+version: '3.9'
+
+services:
+
+  # ----------------------------------------------------------
+  # Backend — API Express + SQLite
+  # Porta 3001 exposta para comunicação com o frontend e debug
+  # ----------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: copygen_backend
+    restart: unless-stopped
+
+    # Porta do container mapeada para a máquina host
+    ports:
+      - "3001:3001"
+
+    # Variáveis de ambiente carregadas do arquivo .env raiz
+    # Crie um .env na raiz com base no backend/.env.example
+    env_file:
+      - ./backend/.env
+
+    # Sobrescreve valores específicos para o ambiente Docker
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      # O banco SQLite fica dentro do volume persistente mapeado abaixo
+      - DATABASE_PATH=/app/data/copy_generator.db
+      # CORS aponta para o frontend rodando no Docker
+      - CORS_ORIGIN=http://localhost:5173
+
+    # Volume persistente para o banco SQLite — os dados sobrevivem a restarts
+    volumes:
+      - ./backend/data:/app/data
+
+    # Rede interna compartilhada entre os serviços
+    networks:
+      - copygen_network
+
+    # Verificação periódica de saúde da API
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3001/', (r) => process.exit(r.statusCode === 200 ? 0 : 1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # ----------------------------------------------------------
+  # Frontend — React build servido pelo Nginx Alpine
+  # Host 5173 → container 80 (Nginx escuta na porta 80 internamente)
+  # ----------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: copygen_frontend
+    restart: unless-stopped
+
+    ports:
+      - "5173:80"  # host:container — Nginx escuta na 80 dentro do container
+
+    environment:
+      - NODE_ENV=production
+
+    # Aguarda o backend estar saudável antes de iniciar
+    depends_on:
+      backend:
+        condition: service_healthy
+
+    networks:
+      - copygen_network
+
+# Rede bridge isolada para comunicação interna entre os containers
+networks:
+  copygen_network:
+    driver: bridge
