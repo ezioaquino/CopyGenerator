@@ -86,7 +86,7 @@ copy-generator/
 #### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/copy-generator.git
+git clone https://github.com/ezioaquino/copy-generator.git
 cd copy-generator
 ```
 
@@ -188,7 +188,7 @@ Documentação completa dos endpoints, payloads e exemplos de resposta:
 ### 📄 Licença
 
 Este projeto está licenciado sob a **Licença MIT**.
-Desenvolvido por **Antigravity Dev** · 2026
+Desenvolvido por **Ezio Aquino** · 2026
 
 ---
 ---
@@ -233,7 +233,7 @@ Desenvolvido por **Antigravity Dev** · 2026
 #### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/copy-generator.git
+git clone https://github.com/ezioaquino/copy-generator.git
 cd copy-generator
 ```
 
@@ -306,4 +306,4 @@ Full endpoint documentation with request/response examples:
 ### 📄 License
 
 This project is licensed under the **MIT License**.
-Built by **Antigravity Dev** · 2026
+Built by **Ezio Aquino** · 2026
