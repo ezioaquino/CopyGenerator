@@ -86,7 +86,7 @@ copy-generator/
 #### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/ezioaquino/copy-generator.git
+git clone https://github.com/ezioaquino/CopyGenerator.git
 cd copy-generator
 ```
 
